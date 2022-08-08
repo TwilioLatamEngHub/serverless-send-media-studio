@@ -8,7 +8,7 @@ exports.handler = async function (context, event, callback) {
   const accountSid = context.ACCOUNT_SID
   const authToken = context.AUTH_TOKEN
 
-  const { serviceSid, conversationSid } = event
+  const { serviceSid, conversationSid, imgUrl } = event
 
   const baseUrl = `https://mcs.us1.twilio.com/v1/Services/${serviceSid}/Media`
 
@@ -27,8 +27,8 @@ exports.handler = async function (context, event, callback) {
       password: authToken
     }
   })
-    .then(res => {
-      client.conversations.v1
+    .then(async res => {
+      await client.conversations.v1
         .services(serviceSid)
         .conversations(conversationSid)
         .messages.create({ mediaSid: res.data.sid })

@@ -33,6 +33,7 @@ exports.handler = async function (context, event, callback) {
         .conversations(conversationSid)
         .messages.create({ mediaSid: res.data.sid })
     })
-    .then(() => callback(null, response))
+    // Set a timeout here due to the small delay on adding the media to the convo
+    .then(() => setTimeout(() => callback(null, response), 2000))
     .catch(error => callback(error))
 }
